@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OBSIDIAN</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="side" id="side" aria-label="Navegação principal">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 28 11 23 29H9L4 11Z" fill="#241D35" stroke="#A78BFA" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 2 12 14l4 15 4-15Z" fill="#8B5CF6" opacity=".55"/><path d="M4 11h24M12 14l-3 15M20 14l3 15" stroke="#C4B5FD" stroke-width="1" opacity=".5"/></svg>
+      <b>OBSIDIAN</b>
+      <button class="ico-btn" id="collapse" aria-label="Recolher menu" aria-pressed="false"></button>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="foot nav" id="foot"></div>
+    <div class="who"><div class="av">D</div><div>Davi<small>Perfil</small></div></div>
+  </aside>
+  <div>
+    <header class="top">
+      <button class="ico-btn" id="menu" aria-label="Abrir menu" style="display:none"></button>
+      <div class="crumb">OBSIDIAN / <b>Visão geral</b></div>
+      <label class="search"><span data-i="search"></span><span class="sr">Buscar</span><input placeholder="Buscar em tudo"></label>
+      <button class="btn pri push" id="new"><span data-i="plus"></span><span class="lbl">Criar</span></button>
+      <button class="ico-btn" aria-label="Notificações" data-i="bell"></button>
+    </header>
+    <main id="vdash">
+      <div class="head">
+        <div>
+          <h1 id="hello">Olá, Davi</h1>
+          <p><span id="date"></span></p>
+        </div>
+        <button class="btn sec" id="new2"><span data-i="plus"></span>Nova tarefa</button>
+      </div>
+      <div class="grid">
+        <section class="card c4" aria-labelledby="h-prog">
+          <h3 id="h-prog">Progresso do dia</h3>
+          <div class="ring-wrap">
+            <div class="ring" role="img" id="ringA">
+              <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="fg" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+              <div class="n"><span id="pct">0%</span><small>do planejado</small></div>
+            </div>
+            <div><div class="big" id="ptxt"></div><p class="aux" style="margin-top:4px">Tarefas, hábitos e agenda planejados para hoje.</p></div>
+          </div>
+        </section>
+        <div class="c8 kpis" id="kpis"></div>
+
+        <section class="card c7" aria-labelledby="h-ag">
+          <h3 id="h-ag">Agenda de hoje <span class="tag neu" id="agc"></span></h3>
+          <ul class="list" id="agenda"></ul>
+        </section>
+        <section class="card c5" aria-labelledby="h-tk">
+          <h3 id="h-tk">Tarefas prioritárias <button class="btn ter" style="height:28px;padding:0 8px">Ver todas</button></h3>
+          <ul class="list" id="tasks"></ul>
+        </section>
+
+        <section class="card c8" aria-labelledby="h-hb">
+          <h3 id="h-hb">Hábitos</h3>
+          <div class="habits" id="habits"></div>
+        </section>
+        <section class="card c4" id="fin" aria-labelledby="h-fn">
+          <h3 id="h-fn">Finanças do mês <button class="ico-btn" id="eye" data-fh="1" aria-pressed="false" aria-label="Ocultar valores" data-i="eye" style="width:30px;height:30px"></button></h3>
+          <div class="aux">Saldo</div><div class="money val" id="fSal">R$ 1.842,00</div>
+          <div style="margin-top:var(--s3)">
+            <div class="mrow"><span class="mut">Receitas</span><span class="val" id="fIn" style="color:var(--ok)">+ R$ 4.200,00</span></div>
+            <div class="mrow"><span class="mut">Despesas</span><span class="val" id="fOut">− R$ 2.358,00</span></div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <main id="vtasks" hidden>
+      <div class="head"><div><h1>Tarefas</h1><p>O que precisa ser feito, agrupado por prazo.</p></div><button class="btn pri" data-new="t"><span data-i="plus"></span>Nova tarefa</button></div>
+      <div class="chips" role="group" aria-label="Filtrar tarefas"><button class="chip" data-f="pend">Pendentes</button><button class="chip" data-f="all">Todas</button><button class="chip" data-f="done">Concluídas</button></div>
+      <div id="tkBody"></div>
+    </main>
+    <main id="vhab" hidden>
+      <div class="head"><div><h1>Hábitos</h1><p>Marque o dia de hoje ou toque num quadrado para ajustar os últimos 14 dias.</p></div><button class="btn pri" data-new="h"><span data-i="plus"></span>Novo hábito</button></div>
+      <div id="hbBody"></div>
+    </main>
+    <main id="vgoal" hidden>
+      <div class="head"><div><h1>Metas</h1><p>Objetivos com prazo, divididos em marcos. Tarefas vinculadas também contam no progresso.</p></div><button class="btn pri" data-new="g"><span data-i="plus"></span>Nova meta</button></div>
+      <div id="glBody"></div>
+    </main>
+    <main id="vcal" hidden>
+      <div class="head"><div><h1>Calendário</h1><p>Prazos de tarefas e metas, mês a mês.</p></div><div style="display:flex;gap:8px;align-items:center"><button class="btn sec" data-cm="0">Hoje</button><button class="ico-btn" aria-label="Mês anterior" data-cm="-1"><span data-i="prev"></span></button><button class="ico-btn" aria-label="Próximo mês" data-cm="1"><span data-i="next"></span></button></div></div>
+      <div class="grid">
+        <section class="card c7"><h3 id="calT"></h3><div class="cal" id="calG"></div><p class="aux legend"><span><i style="background:var(--p)"></i>Pendente</span><span><i style="background:var(--ok)"></i>Concluída</span><span><i style="background:var(--info)"></i>Prazo de meta</span></p></section>
+        <section class="card c5"><h3><span id="calD"></span><button class="btn sec" data-ct="1" style="height:30px;padding:0 10px">Nova tarefa</button></h3><ul class="list" id="calL"></ul></section>
+      </div>
+    </main>
+    <main id="vstudy" hidden>
+      <div class="head"><div><h1>Estudos</h1><p id="stT"></p></div><button class="btn pri" data-new="s"><span data-i="plus"></span>Nova disciplina</button></div>
+      <div class="grid">
+        <section class="card c7" aria-labelledby="h-tm"><h3 id="h-tm">Temporizador de foco</h3>
+          <div style="text-align:center;padding:var(--s4) 0"><div id="tmD" role="timer" style="font-size:64px;font-weight:600;letter-spacing:-.03em;line-height:1">25:00</div></div>
+          <div class="chips" style="justify-content:center" role="group" aria-label="Duração"><button class="chip" data-pm="25">25 min</button><button class="chip" data-pm="50">50 min</button><button class="chip" data-pm="90">90 min</button></div>
+          <div class="f" style="max-width:320px;margin:0 auto var(--s4)"><label for="tmSub">Disciplina</label><select id="tmSub"></select></div>
+          <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn pri" id="tmGo" data-tg="1"></button><button class="btn sec" data-te="1">Finalizar e salvar</button><button class="btn ter" data-tr="1">Zerar</button></div>
+        </section>
+        <section class="card c5"><h3>Disciplinas</h3><ul class="list" id="sbL"></ul></section>
+      </div>
+    </main>
+    <main id="vgym" hidden>
+      <div class="head"><div><h1>Academia</h1><p>Monte rotinas, registre as séries e acompanhe sua carga.</p></div><button class="btn pri" data-new="w"><span data-i="plus"></span>Nova rotina</button></div>
+      <div id="gyBody"></div>
+    </main>
+    <main id="vfin" hidden>
+      <div class="head"><div><h1>Finanças</h1><p>Receitas, despesas e saldo do mês.</p></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="ico-btn" aria-label="Mês anterior" data-fm="-1"><span data-i="prev"></span></button><b id="fmT" style="min-width:130px;text-align:center;font-weight:500"></b><button class="ico-btn" aria-label="Próximo mês" data-fm="1"><span data-i="next"></span></button><button class="ico-btn" id="eye2" data-fh="1" aria-pressed="false" aria-label="Ocultar valores"><span data-i="eye"></span></button><button class="btn pri" data-new="f"><span data-i="plus"></span>Novo lançamento</button></div></div>
+      <div class="kpis" id="fKp"></div>
+      <div class="grid" style="margin-top:16px">
+        <section class="card c5" aria-labelledby="h-fc"><h3 id="h-fc">Gastos por categoria</h3><div id="fCat"></div></section>
+        <section class="card c7" aria-labelledby="h-fl"><h3 id="h-fl">Lançamentos</h3>
+          <div class="chips" role="group" aria-label="Filtrar lançamentos"><button class="chip" data-ff="all">Todos</button><button class="chip" data-ff="in">Receitas</button><button class="chip" data-ff="out">Despesas</button></div>
+          <ul class="list" id="fL2"></ul></section>
+      </div>
+    </main>
+    <main id="vwater" hidden>
+      <div class="head"><div><h1>Hidratação</h1><p id="wSub">Registre cada copo e acompanhe a meta do dia.</p></div></div>
+      <div class="grid">
+        <section class="card c5" aria-labelledby="h-w1"><h3 id="h-w1">Hoje</h3>
+          <div class="money" id="wBig"></div>
+          <div class="bar" id="wBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso de hidratação"><i></i></div><div class="aux" id="wTxt"></div>
+          <div class="f" style="margin-top:20px;max-width:240px"><label for="wgoal">Meta diária (ml)</label><input id="wgoal" type="number" min="500" max="10000" step="100"></div>
+        </section>
+        <section class="card c7" aria-labelledby="h-w2"><h3 id="h-w2">Adicionar água</h3>
+          <div class="chips"><button class="btn sec" data-wa="200">+200 ml</button><button class="btn sec" data-wa="300">+300 ml</button><button class="btn sec" data-wa="500">+500 ml</button><button class="btn sec" data-wa="750">+750 ml</button></div>
+          <div style="display:flex;gap:8px;max-width:340px"><input class="num" id="wc" type="number" min="1" max="5000" inputmode="numeric" placeholder="Outro valor (ml)" aria-label="Outro valor em ml"><button class="btn sec" data-wa="c">Adicionar</button></div>
+          <h3 style="margin:24px 0 8px;font-size:14px">Registros de hoje</h3><ul class="list" id="wL"></ul>
+        </section>
+        <section class="card c12" aria-labelledby="h-w3"><h3 id="h-w3">Últimos 7 dias</h3><div id="wWk" style="display:flex;gap:12px"></div></section>
+      </div>
+    </main>
+    <main id="vnotes" hidden>
+      <div class="head"><div><h1>Notas</h1><p>Escreva sem distração. Tudo é salvo automaticamente.</p></div><button class="btn pri" data-new="n"><span data-i="plus"></span>Nova nota</button></div>
+      <div class="notes">
+        <section class="card" style="padding:var(--s3)"><div class="f" style="margin-bottom:8px"><label class="sr" for="nSearch">Buscar notas</label><input id="nSearch" placeholder="Buscar notas"></div><div id="nList"></div></section>
+        <section class="card"><div class="empty" id="nEmpty"><b>Nenhuma nota selecionada</b>Crie uma nota para começar a escrever.<br><button class="btn pri" data-new="n">Nova nota</button></div>
+          <div id="nForm" style="max-width:720px"><input class="nti" id="nTi" aria-label="Título da nota" placeholder="Título"><textarea class="nbd" id="nBd" aria-label="Texto da nota" placeholder="Comece a escrever..."></textarea><div style="display:flex;justify-content:space-between;align-items:center"><span class="aux">Salvo automaticamente</span><button class="btn ter" id="nDel" data-nd="1" style="color:var(--err)">Excluir nota</button></div></div>
+        </section>
+      </div>
+    </main>
+    <main id="vprj" hidden>
+      <div class="head"><div><h1>Projetos</h1><p>Quadros Kanban: arraste os cartões ou use as setas.</p></div><button class="btn pri" data-new="p"><span data-i="plus"></span>Novo projeto</button></div>
+      <div id="pjBody"></div>
+    </main>
+    <main id="vrep" hidden>
+      <div class="head"><div><h1>Relatórios</h1><p>O que os seus dados mostram no período.</p></div><div class="chips" style="margin:0" role="group" aria-label="Período"><button class="chip" data-rp="r7">7 dias</button><button class="chip" data-rp="r30">30 dias</button><button class="chip" data-rp="rm">Mês atual</button></div></div>
+      <div id="rpBody"></div>
+    </main>
+    <main id="vcfg" hidden>
+      <div class="head"><div><h1>Configurações</h1><p>Backup e gerenciamento dos seus dados.</p></div></div>
+      <div class="grid">
+        <section class="card c7"><h3>Backup</h3><p class="mut" style="margin-bottom:16px">Seus dados ficam só neste navegador. Gere um backup para guardar ou levar para outro aparelho.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"><button class="btn pri" data-bk="gen">Gerar backup</button><button class="btn sec" data-bk="copy">Copiar</button><button class="btn sec" data-bk="dl">Baixar arquivo</button></div>
+          <div class="f" id="bkF"><label for="bkTx">Backup (JSON)</label><textarea id="bkTx" rows="7" style="width:100%;padding:10px 12px;background:var(--input);border:1px solid var(--line-soft);border-radius:var(--r-sm);color:var(--t1);font:12px ui-monospace,monospace" placeholder="Clique em Gerar backup, ou cole aqui um backup para restaurar"></textarea><div class="err">Backup inválido. Confira se o texto está completo.</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><label class="btn sec" style="cursor:pointer">Abrir arquivo<input type="file" id="bkFile" accept=".json,application/json" hidden></label><button class="btn sec" id="bkRes" data-bk="res">Restaurar backup</button></div>
+        </section>
+        <section class="card c5"><h3>Seus dados</h3><div id="cfgInfo" class="mut"></div><div style="margin-top:20px"><button class="btn sec" id="bkWipe" data-bk="wipe" style="color:var(--err)">Apagar todos os dados</button></div></section>
+      </div>
+    </main>
+    <main id="vsoon" hidden>
+      <div class="head"><div><h1 id="soonN">Em breve</h1><p>Este módulo ainda não foi construído.</p></div></div>
+      <div class="card"><div class="empty"><b>Em construção</b>Tarefas e hábitos já funcionam. Este módulo entra nas próximas etapas.<br><button class="btn sec" data-v="inicio">Voltar à visão geral</button></div></div>
+    </main>
+  </div>
+</div>
+
+<nav class="bnav" id="bnav" aria-label="Navegação inferior"></nav>
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pt">
+  <header><h2 id="pt">Nova tarefa</h2><button class="ico-btn" id="x" aria-label="Fechar" data-i="x"></button></header>
+  <div class="body">
+    <div class="f" id="fT"><label for="title">Título</label><input id="title" placeholder="Ex.: Revisar capítulo 4"><div class="err">Preencha este campo para salvar.</div></div>
+    <div class="f"><label for="prio">Prioridade</label><select id="prio"><option>Alta</option><option selected>Média</option><option>Baixa</option></select></div>
+    <div class="f"><label for="due">Vencimento</label><input id="due" type="date"></div>
+    <div class="f" id="fG" hidden><label for="goal">Meta por semana</label><select id="goal"><option value="7">Todos os dias</option><option value="5">5 dias</option><option value="3">3 dias</option></select></div>
+    <div class="f" id="fL"><label for="tgoal">Meta (opcional)</label><select id="tgoal"></select></div>
+    <div class="f" id="fM" hidden><label for="ms">Marcos (um por linha)</label><textarea id="ms" rows="5" style="width:100%;padding:10px 12px;background:var(--input);border:1px solid var(--line-soft);border-radius:var(--r-sm);color:var(--t1);font:inherit;resize:vertical"></textarea></div>
+    <div id="fF" hidden style="display:grid;gap:16px"><div class="f"><label for="ftp">Tipo</label><select id="ftp"><option value="out">Despesa</option><option value="in">Receita</option></select></div><div class="f" id="fA"><label for="famt">Valor (R$)</label><input id="famt" inputmode="decimal" placeholder="0,00"><div class="err">Informe um valor maior que zero.</div></div><div class="f"><label for="fcat">Categoria</label><select id="fcat"></select></div></div>
+  </div>
+  <footer><button class="btn ter" id="del" hidden style="margin-right:auto;color:var(--err)">Excluir</button><button class="btn sec" id="cancel">Cancelar</button><button class="btn pri" id="save">Salvar tarefa</button></footer>
+</aside>
+<div class="toast" id="toast" role="status"><span data-i="check"></span><span id="tmsg"></span></div>
+
+<script src="js/base.js"></script>
+<script src="js/modulos.js"></script>
+</body>
+</html>
